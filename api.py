@@ -4,7 +4,6 @@
 # unconventionalcoding@gmail.com
 
 # Llama imports
-from typing import Optional
 from llama import Llama
 import fire
 
@@ -26,11 +25,11 @@ parser.add_argument('--port', type=int, default=5000, help='API port (int)')
 parser.add_argument('--max_seq_len', type=int, default=512, help='Maximum sequence length (int)')
 parser.add_argument('--temperature', type=float, default=0.6, help='Temperature for sampling (float)')
 parser.add_argument('--top_p', type=float, default=0.9, help='Top p value for nucleus sampling (float)')
-parser.add_argument('--world_size', type=Optional[int], default=None, help='Number of parallel processes (int)')
+parser.add_argument('--world_size', type=int, default=None, help='Number of parallel processes (int)')
 parser.add_argument('--max_batch_size', type=int, default=4, help='Maximum batch size (int)')
-parser.add_argument('--max_gen_len', type=Optional[int], default=None, help='Maximum generation length (int)')
+parser.add_argument('--max_gen_len', type=int, default=None, help='Maximum generation length (int)')
 parser.add_argument('--tokenizer_path', type=str, default='tokenizer.model', help='Path to tokenizer model (str)')
-parser.add_argument('--ckpt_dir', type=Optional[str], default=None, help='The full path to the model directory (str)')
+parser.add_argument('--ckpt_dir', type=str, default=None, help='The full path to the model directory (str)')
 parser.add_argument('--llama_addr', type=str, default='127.0.0.1', help='Llama 2 master address (str)')
 parser.add_argument('--llama_port', type=int, default=29500, help='Llama 2 master port (int)')
 args = parser.parse_args()
