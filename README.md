@@ -4,10 +4,12 @@ This is a simple HTTP API for the Llama 2 LLM. It is compatible with the ChatGPT
 
 ## Usage
 
-After installing Llama 2 from the [official repo](https://github.com/facebookresearch/llama), use `app.py` instead of `example_chat_completion.py` with the official example command, or run:
+After installing Llama 2 from the [official repo](https://github.com/facebookresearch/llama), clone this repository into the Llama directory or just copy `api.py` from this repo to the root of the Llama directory.
+
+Then just run the API:
 
 ```console
-$ ./run_api.sh
+$ ./api.py
 ```
 
 After that, you will have a Llama 2 API running at http://localhost:5000/chat
@@ -15,14 +17,10 @@ After that, you will have a Llama 2 API running at http://localhost:5000/chat
 To allow access from the public, use the command:
 
 ```console
-$ ./run_api.sh 0.0.0.0
+$ ./api.py --host 0.0.0.0
 ```
 
-You can also set other command line arguments:
-
-```console
-$ ./run_api.sh [HOST PORT MODEL MAX_SEQ_LEN MAX_BATCH_SIZE NPROC_PER_NODE]
-```
+You can also specify a `--port` and other command line arguments (see `--help`)
 
 ## Notes
 
