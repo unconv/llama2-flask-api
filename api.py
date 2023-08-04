@@ -145,10 +145,36 @@ def init_process(rank, size, fn, request_queue, response_queue, backend='nccl'):
     fn(rank, size, request_queue, response_queue)
 
 
+def check_messages(messages):
+    if not isinstance(messages, list):
+        return jsonify({
+            "error": {
+                "message": "'messages' must be a list",
+                "code": "invalid_message_list"
+            }
+        }), 400
+
+    for message in messages:
+        if not isinstance(message, dict) or 'role' not in message or 'content' not in message:
+            return jsonify({
+                "error": {
+                    "message": "Each message must have a 'role' and a 'content'",
+                    "code": "invalid_message"
+                }
+            }), 400
+
+    return None
+
+
 # define API route function
 def message_route():
     # get messages from request
     messages = request.json.get("messages")
+
+    # validate message format
+    errors = check_messages(messages)
+    if errors:
+        return errors
 
     # add messages to queue for Llama 2
     for rank in range(args.world_size):
