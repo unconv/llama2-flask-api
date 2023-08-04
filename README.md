@@ -9,7 +9,7 @@ After installing Llama 2 from the [official repo](https://github.com/facebookres
 Then just run the API:
 
 ```console
-$ ./api.py
+$ ./api.py --model 7b-chat
 ```
 
 After that, you will have a Llama 2 API running at http://localhost:5000/chat
