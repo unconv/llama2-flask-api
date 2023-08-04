@@ -71,7 +71,7 @@ if not os.path.exists(args.tokenizer_path):
 
 if notices:
     print()
-    
+
 # initialize queues
 request_queues = [Queue() for _ in range(args.world_size)]
 response_queues = [Queue() for _ in range(args.world_size)]
@@ -182,7 +182,7 @@ def message_route():
     # wait for response
     for rank in range(args.world_size):
         response = response_queues[rank].get()
-    
+
     # return mocked stream response
     if request.json.get("stream"):
         return "data: " + json.dumps(respond_json(response, "delta")) + "\ndata: [DONE]"
