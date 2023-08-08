@@ -185,7 +185,17 @@ def message_route():
 
     # return mocked stream response
     if request.json.get("stream"):
-        return "data: " + json.dumps(respond_json(response, "delta")) + "\ndata: [DONE]"
+        maxlen = 128
+        rc = response["content"]
+        deltas = [rc[i:i+maxlen] for i in range(0, len(rc), maxlen)]
+        output = ""
+        for delta in deltas:
+            delta_response = {
+                "role": response["role"],
+                "content": delta
+            }
+            output += "data: " + json.dumps(respond_json(delta_response, "delta")) + "\n"
+        return output + "data: [DONE]"
 
     # return regular JSON response
     return jsonify(respond_json(response))
