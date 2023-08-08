@@ -4,7 +4,9 @@ This is a simple HTTP API for the Llama 2 LLM. It is compatible with the ChatGPT
 
 ## Usage
 
-After installing Llama 2 from the [official repo](https://github.com/facebookresearch/llama), clone this repository into the Llama directory or just copy `api.py` from this repo to the root of the Llama directory.
+After installing Llama 2 from the [official repo](https://github.com/facebookresearch/llama), clone this repository into the Llama repo or just copy `api.py` from this repo to the root of the Llama repo.
+
+You can also install this repo directly with `pip install -e .` which will also install Flask and Llama. Then you just need to copy your Llama checkpoint directories into the root of this repo, named `llama-2-[MODEL]`, for example `llama-2-7b-chat`.
 
 Then just run the API:
 
@@ -22,8 +24,16 @@ $ ./api.py --host 0.0.0.0
 
 You can also specify a `--port` and other command line arguments (see `--help`)
 
+If your checkpoint directory is not in the standard location, you can use the `--ckpt_dir` flag to set the correct path:
+
+```console
+$ ./api.py --ckpt_dir /path/to/model
+```
+
 ## Notes
 
 This is a very simple implementation and doesn't support all the same features as the ChatGPT API (token usage calculation, streaming, function calling etc.)
 
 If the API is called with `streaming=true`, it will respond with a single event with the whole response.
+
+The API does not require any authentication.
