@@ -23,6 +23,7 @@ parser.add_argument('--model', type=str, default='7b-chat', help='The model name
 parser.add_argument('--host', type=str, default='127.0.0.1', help='API host (str)')
 parser.add_argument('--port', type=int, default=5000, help='API port (int)')
 parser.add_argument('--max_seq_len', type=int, default=512, help='Maximum sequence length (int)')
+parser.add_argument('--backend', type=str, default='nccl', help='Backend (nccl for GPU, gloo for CPU) (str)')
 parser.add_argument('--temperature', type=float, default=0.6, help='Temperature for sampling (float)')
 parser.add_argument('--top_p', type=float, default=0.9, help='Top p value for nucleus sampling (float)')
 parser.add_argument('--world_size', type=int, default=None, help='Number of parallel processes (int)')
@@ -136,7 +137,7 @@ def run(rank, size, request_queue, response_queue):
         response_queue.put(response)
 
 
-def init_process(rank, size, fn, request_queue, response_queue, backend='nccl'):
+def init_process(rank, size, fn, request_queue, response_queue, backend=args.backend):
     os.environ['MASTER_ADDR'] = args.llama_addr
     os.environ['MASTER_PORT'] = str(args.llama_port)
     os.environ['WORLD_SIZE'] = str(size)
